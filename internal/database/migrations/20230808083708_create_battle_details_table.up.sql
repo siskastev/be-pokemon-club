@@ -1,0 +1,9 @@
+CREATE TABLE battle_details (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    battle_id INT NOT NULL,
+    pokemon_name VARCHAR(100) NOT NULL,
+    score INT NOT NULL,
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (battle_id) REFERENCES battles(id)
+);
