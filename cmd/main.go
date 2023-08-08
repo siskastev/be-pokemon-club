@@ -2,6 +2,7 @@ package main
 
 import (
 	"be-pokemon-club/internal/database"
+	"be-pokemon-club/internal/middleware"
 	"be-pokemon-club/internal/routes"
 	"context"
 	"fmt"
@@ -29,6 +30,9 @@ func main() {
 		ServerHeader:  "svc-pokemon-club",
 		AppName:       "service backend pokemon club",
 	})
+
+	// Setup logger
+	app.Use(middleware.LoggerMiddleware())
 
 	// Setup routes
 	routes.Setup(app)
