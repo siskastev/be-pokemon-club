@@ -23,12 +23,12 @@ type User struct {
 }
 
 type LoginRequest struct {
-	Email    string `json:"email" binding:"required,email"`
-	Password string `json:"password" binding:"required"`
+	Email    string `json:"email" validate:"required,email"`
+	Password string `json:"password" validate:"required"`
 }
 
 type UserResponse struct {
-	ID        string    `json:"id"`
+	ID        int       `json:"id"`
 	Name      string    `json:"name"`
 	Email     string    `json:"email"`
 	Role      Role      `json:"role"`
