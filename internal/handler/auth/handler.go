@@ -2,6 +2,7 @@ package auth
 
 import (
 	"be-pokemon-club/internal/helpers/jwt"
+	response "be-pokemon-club/internal/helpers/response"
 	helpers "be-pokemon-club/internal/helpers/validator"
 	"be-pokemon-club/internal/models"
 	"be-pokemon-club/internal/services/auth"
@@ -41,7 +42,7 @@ func (h *HandlerAuth) Login(c *fiber.Ctx) error {
 			"route":  c.Path(),
 			"error":  err.Error(),
 		}).Error("Failed to parse login user")
-		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"errors": err.Error()})
+		return response.Error(c, fiber.StatusInternalServerError, err.Error())
 	}
 
 	// Generate JWT token
@@ -52,10 +53,10 @@ func (h *HandlerAuth) Login(c *fiber.Ctx) error {
 			"route":  c.Path(),
 			"error":  err.Error(),
 		}).Error("Failed to generate token")
-		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"errors": err.Error()})
+		return response.Error(c, fiber.StatusInternalServerError, err.Error())
 	}
 
-	response := models.UserResponseWithToken{
+	result := models.UserResponseWithToken{
 		UserResponse: userResponse,
 		Token: models.UserSession{
 			JWTToken: token,
@@ -67,5 +68,6 @@ func (h *HandlerAuth) Login(c *fiber.Ctx) error {
 		"route":  c.Path(),
 		"error":  nil,
 	}).Info("Success login user")
-	return c.Status(fiber.StatusOK).JSON(fiber.Map{"data": response})
+
+	return response.Success(c, result)
 }
