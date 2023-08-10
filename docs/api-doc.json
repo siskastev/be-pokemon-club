@@ -103,14 +103,16 @@
         ]
       }
     },
-    "/pokemon/kanto": {
+    "/pokemon/{name}": {
       "get": {
         "tags": [
           "pokemon"
         ],
         "summary": "getPokemonDetails",
         "operationId": "getPokemonDetails",
-        "parameters": [],
+        "parameters": [{
+          "$ref": "#/components/parameters/pokedexName"
+        }],
         "responses": {
           "200": {
             "description": "",
@@ -404,6 +406,16 @@
           "type": "integer"
         },
         "example": 1
+      },
+      "pokedexName": {
+        "name": "name",
+        "in": "path",
+        "description": "Name Pokedex",
+        "required": true,
+        "schema": {
+          "type": "string"
+        },
+        "example": "kanto"
       }
     }
   },
