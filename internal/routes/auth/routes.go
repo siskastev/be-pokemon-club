@@ -13,5 +13,5 @@ func RegisterRoutes(route fiber.Router) {
 	repo := repository.NewUserRepository(database.DB)
 	service := service.NewUserService(repo)
 	handler := handler.NewHandlerAuth(service)
-	route.Get("/login", handler.Login)
+	route.Post("/login", handler.Login)
 }
