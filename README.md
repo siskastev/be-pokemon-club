@@ -10,6 +10,10 @@ Technical Test Backend Engineer about Pokemon Fight Club Rocket Team
 
 * Get rankings of all Pokémon battles for the boss role, showcasing the highest-scoring Pokémon that deserve promotion.
 
+## Table Specifications
+
+![erd](docs/erd.drawio.png)
+
 ## Setup
 1. Clone the repository
 2. Navigate to the project directory:
@@ -35,5 +39,5 @@ The API uses token authentication. To authenticate requests, include the API tok
 * `email`: ops@gmail.com
 * `password`: iniops
 3. To log in as the team, use the following credentials:
-* `email`: hallo@gmail.com `password`: "hallo"
-* `email`: care@gmail.com `password`: "care"
+* `email`: hallo@gmail.com `password`: hallo
+* `email`: care@gmail.com `password`: care
