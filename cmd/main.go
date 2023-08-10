@@ -3,6 +3,7 @@ package main
 import (
 	"be-pokemon-club/internal/database"
 	"be-pokemon-club/internal/middleware"
+	"be-pokemon-club/internal/redis"
 	"be-pokemon-club/internal/routes"
 	"context"
 	"fmt"
@@ -23,6 +24,8 @@ func main() {
 	}
 
 	database.Init()
+
+	redis.Init()
 
 	app := fiber.New(fiber.Config{
 		CaseSensitive: true,
