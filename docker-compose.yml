@@ -1,0 +1,54 @@
+version: '3'
+services:
+  app:
+    container_name: pokemon-club-app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: on-failure
+    ports:
+      - 3000:3000
+    env_file:
+      - .env
+    depends_on:
+      - mysqldb
+      - redis
+    networks:
+      - pokemon_club
+
+  mysqldb:
+    image: mysql:8.0
+    ports: 
+      - 3306:3306
+    environment: 
+      - MYSQL_ROOT_HOST=${DB_HOST} 
+      - MYSQL_USER=${DB_USER}
+      - MYSQL_PASSWORD=${DB_PASSWORD}
+      - MYSQL_DATABASE=${DB_NAME}
+      - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
+    volumes:
+      - database_mysql:/var/lib/mysql
+    networks:
+      - pokemon_club
+
+  redis:
+    image: redis:latest
+    restart: always
+    ports:
+      - 6379:6379
+    environment:
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+    command: redis-server --requirepass ${REDIS_PASSWORD}
+    volumes:
+      - redis:/data
+    networks:
+      - pokemon_club
+
+volumes:
+  database_mysql:
+  redis:
+
+# Networks to be created to facilitate communication between containers
+networks:
+  pokemon_club:
+    driver: bridge
