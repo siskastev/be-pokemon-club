@@ -1,0 +1,419 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "API-POKEMON-CLUB",
+    "contact": {},
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000/api",
+      "variables": {}
+    }
+  ],
+  "paths": {
+    "/login": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Login Bos, Ops, Team",
+        "operationId": "Login",
+        "parameters": [],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/LoginRequest"
+                  },
+                  {
+                    "example": {
+                      "email": "ops@gmail.com",
+                      "password": "iniops"
+                    }
+                  }
+                ]
+              },
+              "example": {
+                "email": "ops@gmail.com",
+                "password": "iniops"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/pokemon": {
+      "get": {
+        "tags": [
+          "pokemon"
+        ],
+        "summary": "getAllPokemon",
+        "operationId": "getAllPokemon",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "",
+            "required": true,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "example": 1
+            }
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "description": "",
+            "required": true,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "example": 20
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false,
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/pokemon/kanto": {
+      "get": {
+        "tags": [
+          "pokemon"
+        ],
+        "summary": "getPokemonDetails",
+        "operationId": "getPokemonDetails",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false,
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/pokemon/battles": {
+      "post": {
+        "tags": [
+          "pokemon"
+        ],
+        "summary": "createBattles",
+        "description": "Role Access only ops and team",
+        "operationId": "createBattles",
+        "parameters": [],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/createBattlesRequest"
+                  },
+                  {
+                    "example": {
+                      "pokemon": [
+                        {
+                          "name": "indigo-disk",
+                          "score": 3
+                        },
+                        {
+                          "name": "hoenn",
+                          "score": 1
+                        },
+                        {
+                          "name": "hisui",
+                          "score": 2
+                        },
+                        {
+                          "name": "kanto",
+                          "score": 5
+                        },
+                        {
+                          "name": "original-sinnoh",
+                          "score": 4
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              "example": {
+                "pokemon": [
+                  {
+                    "name": "indigo-disk",
+                    "score": 3
+                  },
+                  {
+                    "name": "hoenn",
+                    "score": 1
+                  },
+                  {
+                    "name": "hisui",
+                    "score": 2
+                  },
+                  {
+                    "name": "kanto",
+                    "score": 5
+                  },
+                  {
+                    "name": "original-sinnoh",
+                    "score": 4
+                  }
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false,
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      },
+      "get": {
+        "tags": [
+          "pokemon"
+        ],
+        "summary": "GetAllBattles",
+        "operationId": "GetAllBattles",
+        "parameters": [
+          {
+            "name": "start_date",
+            "in": "query",
+            "description": "",
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string",
+              "example": "2023-08-01"
+            }
+          },
+          {
+            "name": "end_date",
+            "in": "query",
+            "description": "",
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string",
+              "example": "2023-08-30"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false,
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/pokemon/battles/{id}": {
+      "get": {
+        "tags": [
+          "pokemon"
+        ],
+        "summary": "getBettlesByID",
+        "operationId": "getBettlesByID",
+        "parameters": [{
+          "$ref": "#/components/parameters/battleId"
+        }],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false,
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/pokemon/ranking": {
+      "get": {
+        "tags": [
+          "pokemon"
+        ],
+        "description": "Role Access only bos",
+        "summary": "ranking",
+        "operationId": "ranking",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false,
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "LoginRequest": {
+        "title": "LoginRequest",
+        "required": [
+          "email",
+          "password"
+        ],
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "email": "ops@gmail.com",
+          "password": "iniops"
+        }
+      },
+      "createBattlesRequest": {
+        "title": "createBattlesRequest",
+        "required": [
+          "pokemon"
+        ],
+        "type": "object",
+        "properties": {
+          "pokemon": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Pokemon"
+            },
+            "description": ""
+          }
+        },
+        "example": {
+          "pokemon": [
+            {
+              "name": "indigo-disk",
+              "score": 3
+            },
+            {
+              "name": "hoenn",
+              "score": 1
+            },
+            {
+              "name": "hisui",
+              "score": 2
+            },
+            {
+              "name": "kanto",
+              "score": 5
+            },
+            {
+              "name": "original-sinnoh",
+              "score": 4
+            }
+          ]
+        }
+      },
+      "Pokemon": {
+        "title": "Pokemon",
+        "required": [
+          "name",
+          "score"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "score": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "example": {
+          "name": "indigo-disk",
+          "score": 3
+        }
+      }
+    },
+    "securitySchemes": {
+      "bearer": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    },
+    "parameters": {
+      "battleId": {
+        "name": "id",
+        "in": "path",
+        "description": "ID Battle",
+        "required": true,
+        "schema": {
+          "type": "integer"
+        },
+        "example": 1
+      }
+    }
+  },
+  "security": [],
+  "tags": [
+    {
+      "name": "Auth"
+    },
+    {
+      "name": "pokemon"
+    }
+  ]
+}
