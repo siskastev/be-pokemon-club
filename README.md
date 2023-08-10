@@ -10,9 +10,13 @@ Technical Test Backend Engineer about Pokemon Fight Club Rocket Team
 
 * Get rankings of all Pokémon battles for the boss role, showcasing the highest-scoring Pokémon that deserve promotion.
 
+## Entity Relationship Diagram
+
+![erd](docs/erd.png)
+
 ## Table Specifications
 
-![erd](docs/erd.drawio.png)
+![erd](docs/specifications.drawio.png)
 
 ## Setup
 1. Clone the repository
