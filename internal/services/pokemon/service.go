@@ -12,4 +12,5 @@ type Service interface {
 	CreateBattles(ctx context.Context, request models.BattleRequest, userEmail string) (models.BattleResponse, error)
 	GetBattlesByID(ctx context.Context, id int, createdBy string) (models.BattleResponse, error)
 	GetListBattles(ctx context.Context, request models.FilterPeriods, createdBy string) ([]models.BattleResponse, error)
+	GetRanking(ctx context.Context) ([]models.RankingResponse, error)
 }

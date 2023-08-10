@@ -200,3 +200,20 @@ func isValidDate(date string) bool {
 	_, err := time.Parse("2006-01-02", date)
 	return err == nil
 }
+
+func (h *HandlerPokemon) GetRanking(c *fiber.Ctx) error {
+
+	logger := c.Locals("logger").(*logrus.Logger)
+
+	result, err := h.pokemonService.GetRanking(c.Context())
+	if err != nil {
+		logger.WithFields(logrus.Fields{
+			"method": c.Method(),
+			"route":  c.Path(),
+			"error":  err,
+		}).Error("Failed to get pokemon list")
+		return response.Error(c, fiber.StatusInternalServerError, err.Error())
+	}
+
+	return response.Success(c, result)
+}

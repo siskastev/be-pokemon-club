@@ -13,7 +13,7 @@ import (
 )
 
 const (
-	RoleBoss = "bos"
+	RoleBos  = "bos"
 	RoleOps  = "ops"
 	RoleTeam = "team"
 )
@@ -30,6 +30,7 @@ func RegisterRoutes(route fiber.Router) {
 	pokemonGroup.Use(jwtMiddleware.AuthRequired())
 
 	pokemonGroup.Get("", handler.GetAll)
+	pokemonGroup.Get("/ranking", jwtMiddleware.HasRoles(RoleBos), handler.GetRanking)
 	pokemonGroup.Post("/battles", jwtMiddleware.HasRoles(RoleOps, RoleTeam), handler.CreateBattles)
 	pokemonGroup.Get("/battles/:id", handler.GetBattlesByID)
 	pokemonGroup.Get("/battles", handler.GetBattles)

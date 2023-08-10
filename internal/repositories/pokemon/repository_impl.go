@@ -81,3 +81,13 @@ func (o *pokemonRepository) GetListBattles(ctx context.Context, request models.F
 
 	return battles, nil
 }
+
+func (o *pokemonRepository) GetListBattleDetails(ctx context.Context) ([]models.BattleDetails, error) {
+	var battleDetails []models.BattleDetails
+
+	if err := o.db.Find(&battleDetails).Error; err != nil {
+		return battleDetails, err
+	}
+
+	return battleDetails, nil
+}

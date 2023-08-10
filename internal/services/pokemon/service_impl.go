@@ -8,6 +8,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"sort"
 	"time"
 
 	"github.com/go-redis/redis/v8"
@@ -253,4 +254,48 @@ func (s *pokemonService) GetListBattles(ctx context.Context, request models.Filt
 	}
 
 	return response, nil
+}
+
+func (s *pokemonService) GetRanking(ctx context.Context) ([]models.RankingResponse, error) {
+	ctx, cancel := context.WithTimeout(ctx, 5*time.Second)
+	defer cancel()
+
+	result, err := s.pokemonRepo.GetListBattleDetails(ctx)
+	if err != nil {
+		return nil, err
+	}
+
+	ranking := calculateRanking(result)
+
+	sort.Slice(ranking, func(i, j int) bool {
+		return ranking[i].TotalScore > ranking[j].TotalScore
+	})
+
+	return ranking, nil
+}
+
+func calculateRanking(battles []models.BattleDetails) []models.RankingResponse {
+	calculate := make(map[string]models.RankingResponse)
+	for _, battle := range battles {
+		pokemonName := battle.PokemonName
+		if _, ok := calculate[pokemonName]; !ok {
+			calculate[pokemonName] = models.RankingResponse{
+				PokemonName: pokemonName,
+				TotalScore:  0,
+				TotalBattle: 0,
+			}
+		}
+
+		rankingResponse := calculate[pokemonName]
+		rankingResponse.TotalScore += battle.Score
+		rankingResponse.TotalBattle++
+		calculate[pokemonName] = rankingResponse
+	}
+
+	ranking := make([]models.RankingResponse, 0, len(calculate))
+	for _, stats := range calculate {
+		ranking = append(ranking, stats)
+	}
+
+	return ranking
 }

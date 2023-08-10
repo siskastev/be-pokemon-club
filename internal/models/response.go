@@ -45,4 +45,10 @@ type (
 		Name  string `json:"name"`
 		Score int    `json:"score"`
 	}
+
+	RankingResponse struct {
+		PokemonName string `json:"pokemon_name"`
+		TotalScore  int    `json:"total_score"`
+		TotalBattle int    `json:"total_battle"`
+	}
 )
