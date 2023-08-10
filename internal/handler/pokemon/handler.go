@@ -125,7 +125,7 @@ func (h *HandlerPokemon) CreateBattles(c *fiber.Ctx) error {
 		return response.Error(c, fiber.StatusInternalServerError, err.Error())
 	}
 
-	return response.Success(c, result)
+	return c.Status(fiber.StatusCreated).JSON(fiber.Map{"data": result})
 }
 
 func (h *HandlerPokemon) GetBattlesByID(c *fiber.Ctx) error {
