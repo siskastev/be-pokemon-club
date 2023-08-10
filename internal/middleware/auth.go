@@ -42,16 +42,10 @@ func (a *AuthMiddleware) HasRoles(roles ...string) fiber.Handler {
 			return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{"message": "Unauthorized"})
 		}
 
-		isAuthorized := false
 		for _, role := range roles {
-			if string(user.Role) == role {
-				isAuthorized = true
-				break
+			if string(user.Role) != role {
+				return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{"message": "Unauthorized Role Access"})
 			}
-		}
-
-		if !isAuthorized {
-			return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{"message": "Unauthorized Role Access"})
 		}
 
 		return c.Next()
