@@ -1,0 +1,9 @@
+CREATE TABLE battles (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    total_pokemon INT NOT NULL,
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    created_by VARCHAR(100) NOT NULL,
+    updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    updated_by VARCHAR(100) NOT NULL,
+    INDEX `battles_created_by` (`created_by`)
+);
