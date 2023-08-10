@@ -4,9 +4,11 @@ go 1.19
 
 require (
 	github.com/go-playground/validator/v10 v10.15.0
+	github.com/go-redis/redis/v8 v8.11.5
 	github.com/gofiber/fiber/v2 v2.48.0
 	github.com/golang-jwt/jwt v3.2.2+incompatible
 	github.com/golang-migrate/migrate/v4 v4.16.2
+	github.com/golang/mock v1.6.0
 	github.com/joho/godotenv v1.5.1
 	github.com/sirupsen/logrus v1.9.3
 	gorm.io/driver/mysql v1.5.1
@@ -19,7 +21,6 @@ require (
 	github.com/gabriel-vasile/mimetype v1.4.2 // indirect
 	github.com/go-playground/locales v0.14.1 // indirect
 	github.com/go-playground/universal-translator v0.18.1 // indirect
-	github.com/go-redis/redis/v8 v8.11.5 // indirect
 	github.com/leodido/go-urn v1.2.4 // indirect
 	golang.org/x/net v0.10.0 // indirect
 	golang.org/x/text v0.12.0 // indirect
